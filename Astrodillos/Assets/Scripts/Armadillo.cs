@@ -4,7 +4,7 @@ using System.Collections;
 namespace Astrodillos {
 	public class Armadillo : MonoBehaviour {
 		
-		float jetpackPower = 0.1f;
+		float jetpackPower = 1.1f;
 		float rotateSpeed = 60f;
 		
 		Rigidbody2D body;
