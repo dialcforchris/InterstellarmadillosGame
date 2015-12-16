@@ -8,7 +8,7 @@ namespace Astrodillos {
 		
 		float jetpackPower = 1.1f;
 		float rotateSpeed = 60f;
-		float aimTurnSpeed = 40;
+		float aimTurnSpeed = 75;
 		
 		Rigidbody2D body;
 
@@ -45,11 +45,11 @@ namespace Astrodillos {
 
 		void UpdateRotation(){
 			if (controller.leftKey.isDown()) {
-				Rotate(-1);
+				Rotate(1);
 				return;
 			}
 			if (controller.rightKey.isDown()) {
-				Rotate(1);
+				Rotate(-1);
 				return;
 			}
 
