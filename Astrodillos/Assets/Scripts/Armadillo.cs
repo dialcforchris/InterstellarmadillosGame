@@ -5,17 +5,21 @@ namespace Astrodillos {
 	public class Armadillo : MonoBehaviour {
 
 		public GameObject aimer;
+		public ParticleSystem jetpackParticles;
 		
-		float jetpackPower = 1.1f;
+		float jetpackPower = 1.5f;
 		float rotateSpeed = 60f;
 		float aimTurnSpeed = 75;
 		
 		Rigidbody2D body;
-
+		Collider2D collider;
 		Controller controller;
+
+
 		// Use this for initialization
 		void Awake () {
 			body = GetComponent<Rigidbody2D>();
+			collider = GetComponent<Collider2D> ();
 		}
 
 		void Start(){
@@ -27,19 +31,37 @@ namespace Astrodillos {
 		
 		// Update is called once per frame
 		void Update () {
+			bool thrusting = false;
 			if (controller != null) {
 				
 				if (controller.thrustKey.isDown()){
 					Thrust();
+					thrusting = true;
+				}
+
+				if(controller.shootKey.justPressed()){
+					FireMissile();
 				}
 
 				UpdateRotation ();
 				UpdateAiming ();
 			}
+
+			if (!thrusting) {
+				jetpackParticles.Stop();
+			}
 		}
 		
 		void Thrust(){
-			body.AddForce(transform.up * jetpackPower);
+			body.AddForce(-transform.right * jetpackPower);
+			if (!jetpackParticles.isPlaying) {
+				jetpackParticles.Play();
+			}
+		}
+
+		void FireMissile(){
+			Missile missile = Game.game.missileManager.GetMissile ();
+			missile.Spawn (aimer.transform.position, aimer.transform.eulerAngles.z + 90, collider);
 		}
 
 

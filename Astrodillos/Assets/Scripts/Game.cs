@@ -8,6 +8,7 @@ namespace Astrodillos {
 		//Reference to self, allows Game access anywhere
 		public static Game game;
 
+		public MissileManager missileManager;
 		public ParticleSystem explosionParticles;
 
 		List<Controller> controllers;
