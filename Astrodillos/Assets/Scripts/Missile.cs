@@ -13,7 +13,7 @@ namespace Astrodillos{
 		Collider2D ignoreCollider;
 
 
-		float missileSpeed = 200f;
+		float missileSpeed = 30f;
 
 		float aliveTime = 0;
 		float maxAliveTime = 10;
