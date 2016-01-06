@@ -34,6 +34,7 @@ namespace Astrodillos{
 
 			angle *= Mathf.Deg2Rad;
 			Vector2 forceDirection = new Vector2 (Mathf.Cos (angle), Mathf.Sin (angle));
+			Debug.Log (missileSpeed);
 			body.AddForce (forceDirection * missileSpeed);
 		}
 
