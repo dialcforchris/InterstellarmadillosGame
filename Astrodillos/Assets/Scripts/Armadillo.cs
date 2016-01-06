@@ -27,6 +27,9 @@ namespace Astrodillos {
 		Collider2D collider;
 		Controller controller;
 
+		int controllerID;
+		ControllerManager controllerManager;
+
 
 		// Use this for initialization
 		void Awake () {
@@ -38,30 +41,31 @@ namespace Astrodillos {
 
 		void Start(){
 			//Debug default to keyboard
-			if (controller == null) {
-				controller = new ControllerKeyboard();
+			if (controllerManager == null) {
+				controllerManager = GameObject.Find("ControllerManager").GetComponent<ControllerManager>();
+				controllerID = 0;
 			}
 		}
 		
 		// Update is called once per frame
 		void Update () {
 			bool thrusting = false;
-			if (controller != null) {
+
 				
-				if (controller.thrustKey.isDown()){
-					if (jetpackFuel > 0) {
-						Thrust();
-						thrusting = true;
-					}
+			if (controllerManager.GetController(controllerID).trigger.IsDown()){
+				if (jetpackFuel > 0) {
+					Thrust();
+					thrusting = true;
 				}
-
-				if(controller.shootKey.justPressed()){
-					FireMissile();
-				}
-
-				UpdateRotation ();
-				UpdateAiming ();
 			}
+
+			if(controllerManager.GetController(controllerID).bumper.JustPressed()){
+				FireMissile();
+			}
+
+			UpdateRotation ();
+			UpdateAiming ();
+
 
 			if (!thrusting) {
 				if(fuelRefillCounter<fuelRefillTime){
@@ -113,11 +117,11 @@ namespace Astrodillos {
 
 
 		void UpdateRotation(){
-			if (controller.leftKey.isDown()) {
+			if (controllerManager.GetController(controllerID).leftButton.IsDown()) {
 				Rotate(1);
 				return;
 			}
-			if (controller.rightKey.isDown()) {
+			if (controllerManager.GetController(controllerID).rightButton.IsDown()) {
 				Rotate(-1);
 				return;
 			}
@@ -127,21 +131,15 @@ namespace Astrodillos {
 		}
 
 		void UpdateAiming(){
-			if (controller.downKey.isDown()) {
+			if (controllerManager.GetController(controllerID).downButton.IsDown()) {
 				RotateAimer(-1);
 			}
-			if (controller.upKey.isDown()) {
+			if (controllerManager.GetController(controllerID).upButton.IsDown()) {
 				RotateAimer(1);
 			}
 
-			if (controller.shootKey.justPressed ()) {
-				ShootMissile();
-			}
 		}
 
-		void ShootMissile(){
-
-		}
 
 		void Rotate(float rotDir){
 			body.angularVelocity = rotDir * rotateSpeed;

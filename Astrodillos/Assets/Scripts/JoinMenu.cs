@@ -6,32 +6,24 @@ using System.Collections.Generic;
 namespace Astrodillos{
 	public class JoinMenu : MonoBehaviour {
 
-		public Text playerCount;
+		public ControllerManager controllerManager;
 		public Text countdownText;
-
-		List<Controller> controllers = new List<Controller>();
-
-		bool keyboardController = false;
 
 		float countdown = 5f;
 		bool countdownActive = false;
 		// Use this for initialization
-		void Start () {
-			UpdatePlayerCountText ();
+		void Awake () {
+
 		}
 		
 		// Update is called once per frame
 		void Update () {
-			if (controllers.Count < 8) {
-				//Keyboard
-				if(!keyboardController){
-					if(Input.GetKeyDown(KeyCode.Space)){
-						keyboardController = true;
-						AddController(new ControllerKeyboard());
-					}
-				}
+
+			if (controllerManager.GetController (0).bumper.JustPressed ()) {
+				Debug.Log(1);
 			}
 
+			//Update countdown
 			if (countdownActive) {
 				countdown-=Time.deltaTime;
 				countdownText.text = Mathf.RoundToInt(countdown).ToString();
@@ -42,18 +34,10 @@ namespace Astrodillos{
 			}
 		}
 
-
-		void AddController(Controller type){
-
-			controllers.Add(type);
-			UpdatePlayerCountText ();
+		void AddController(){
 			if (!countdownActive) {
 				StartCountdown();
 			}
-		}
-
-		void UpdatePlayerCountText(){
-			playerCount.text = controllers.Count.ToString ();
 		}
 
 		void StartCountdown(){
