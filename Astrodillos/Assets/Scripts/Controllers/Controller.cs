@@ -7,25 +7,29 @@ namespace Astrodillos{
 
 		public ControlInput bumper = new ControlInput();
 		public ControlInput trigger = new ControlInput();
-		public ControlInput leftButton = new ControlInput();
 		public ControlInput rightButton = new ControlInput();
 		public ControlInput upButton = new ControlInput();
-		public ControlInput downButton = new ControlInput();
+		public ControlInput splitButton = new ControlInput();
 		public int playerIndex;
 		public int controllerIndex;
-		
-
-		public Controller(){
-
+		public bool isSplit { 
+			get 
+			{ return splitSide != SplitSide.none; } 
+			private set{}
 		}
 
-		public virtual void Update(){
-			bumper.Update ();
-			trigger.Update ();
-			leftButton.Update ();
-			rightButton.Update ();
-			upButton.Update ();
-			downButton.Update ();
+		public enum SplitSide
+		{
+			none,
+			left,
+			right
+		}
+
+		public SplitSide splitSide;
+
+		public Controller(int _controllerIndex = 0){
+			splitSide = SplitSide.none;
+			controllerIndex = _controllerIndex;
 		}
 	}
 
@@ -39,10 +43,6 @@ namespace Astrodillos{
 
 		}
 
-		public virtual void Update(){
-
-		}
-
 		public virtual bool IsDown(){
 			return false;
 		}
@@ -53,6 +53,10 @@ namespace Astrodillos{
 
 		public virtual bool JustReleased(){
 			return false;
+		}
+
+		public virtual float GetValue(){
+			return 0;
 		}
 	}
 

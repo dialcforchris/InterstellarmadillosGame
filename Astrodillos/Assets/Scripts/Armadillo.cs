@@ -52,7 +52,7 @@ namespace Astrodillos {
 			bool thrusting = false;
 
 				
-			if (controllerManager.GetController(controllerID).trigger.IsDown()){
+			if (controllerManager.GetController(controllerID).trigger.GetValue()!=0){
 				if (jetpackFuel > 0) {
 					Thrust();
 					thrusting = true;
@@ -117,11 +117,11 @@ namespace Astrodillos {
 
 
 		void UpdateRotation(){
-			if (controllerManager.GetController(controllerID).leftButton.IsDown()) {
+			if (controllerManager.GetController(controllerID).rightButton.GetValue()<0) {
 				Rotate(1);
 				return;
 			}
-			if (controllerManager.GetController(controllerID).rightButton.IsDown()) {
+			if (controllerManager.GetController(controllerID).rightButton.GetValue()>0) {
 				Rotate(-1);
 				return;
 			}
@@ -131,10 +131,10 @@ namespace Astrodillos {
 		}
 
 		void UpdateAiming(){
-			if (controllerManager.GetController(controllerID).downButton.IsDown()) {
+			if (controllerManager.GetController(controllerID).upButton.GetValue()<0) {
 				RotateAimer(-1);
 			}
-			if (controllerManager.GetController(controllerID).upButton.IsDown()) {
+			if (controllerManager.GetController(controllerID).upButton.GetValue()>0) {
 				RotateAimer(1);
 			}
 

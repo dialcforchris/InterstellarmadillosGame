@@ -11,14 +11,17 @@ namespace Astrodillos{
 		
 		//Controllers
 		List<Controller> controllers = new List<Controller>();
-		
+
+		public int controllerCount {
+			get{ return controllers.Count; }
+			private set{}
+		}
 		int gamepadCount = 0;
 		
 		void Awake() {
+
 			DontDestroyOnLoad (gameObject);
 			CheckForNewControllers ();
-			
-			AddController (new Controller_Keyboard ());
 		}
 		
 		void Update(){
@@ -30,7 +33,7 @@ namespace Astrodillos{
 				
 				//Add a new controller
 				for (int i = gamepadCount; i < ReInput.controllers.joystickCount; i++) {
-					AddController(new Controller_PS4_Full (i));
+					AddController(new Controller_PS4_Full (i, controllers.Count+1));
 					gamepadCount++;
 				}
 			}
@@ -47,6 +50,12 @@ namespace Astrodillos{
 		
 		public void AddController(Controller newController){
 			controllers.Add (newController);
+		}
+
+		public void SplitController(int controllerIndex){
+			Controller rightSide = new Controller_PS4_Right (controllers [controllerIndex].playerIndex, controllers [controllerIndex].controllerIndex);
+			controllers [controllerIndex] = new Controller_PS4_Left (controllers [controllerIndex].playerIndex, controllers [controllerIndex].controllerIndex);
+			controllers.Add (rightSide);
 		}
 		
 	}
