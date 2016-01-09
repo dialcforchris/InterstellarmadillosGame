@@ -10,6 +10,7 @@ namespace Astrodillos{
 		public ControlInput rightButton = new ControlInput();
 		public ControlInput upButton = new ControlInput();
 		public ControlInput splitButton = new ControlInput();
+		//Rewired player index
 		public int playerIndex;
 		public int controllerIndex;
 		public bool isSplit { 
@@ -27,7 +28,8 @@ namespace Astrodillos{
 
 		public SplitSide splitSide;
 
-		public Controller(int _controllerIndex = 0){
+		public Controller(int player = 0, int _controllerIndex = 0){
+			playerIndex = player;
 			splitSide = SplitSide.none;
 			controllerIndex = _controllerIndex;
 		}

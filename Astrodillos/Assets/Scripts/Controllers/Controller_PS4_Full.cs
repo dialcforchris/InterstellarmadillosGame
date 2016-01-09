@@ -5,7 +5,7 @@ using Rewired;
 namespace Astrodillos{
 	public class Controller_PS4_Full : Controller {
 
-		public Controller_PS4_Full(int player, int _controllerIndex) : base(_controllerIndex){
+		public Controller_PS4_Full(int player, int _controllerIndex) : base(player,_controllerIndex){
 			trigger = new ControlInputAxis (player, "trigger");
 			bumper = new ControlInputButton (player, "bumper");
 			upButton = new ControlInputAxis (player, "up");

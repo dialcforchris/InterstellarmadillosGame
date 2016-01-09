@@ -10,6 +10,7 @@ namespace Astrodillos{
 		public Text countdownText;
 		public GameObject joinedPlayersParent;
 		public GameObject joinedPlayerPrefab;
+		public List<PlayerSelectionBox> selectionBoxes;
 
 		List<JoinedPlayer> joinedPlayers = new List<JoinedPlayer>();
 		List<int> joinedControllers = new List<int>();
@@ -37,6 +38,14 @@ namespace Astrodillos{
 			if (countdownActive) {
 				countdown-=Time.deltaTime;
 				countdownText.text = Mathf.RoundToInt(countdown).ToString();
+
+				//Check all players are still ready
+				for(int i = 0; i<joinedPlayers.Count; i++){
+					if(!joinedPlayers[i].GetReady()){
+						countdownActive = false;
+						break;
+					}
+				}
 				if(countdown<=0){
 					countdownActive = false;
 					StartGame();
@@ -46,10 +55,11 @@ namespace Astrodillos{
 
 		//Check controllers to see if they join
 		void GetJoinInput(){
-			//Did joined controller ready up or split?
-			for (int i = 0; i<joinedControllers.Count; i++) {
-				Controller controller = controllerManager.GetController(joinedControllers[i]);
-				if(controller.bumper.JustPressed()){
+
+
+			//Did joined player ready up?
+			for (int i = 0; i<joinedPlayers.Count; i++) {
+				if(joinedPlayers[i].PressedReady()){
 					joinedPlayers[i].ToggleReady();
 					//Start countdown if all players are nor ready
 					if(AllPlayersReady()){
@@ -58,9 +68,14 @@ namespace Astrodillos{
 						}
 					}
 				}
+			}
+			//Did joined controller ready up or split?
+			for (int i = 0; i<joinedControllers.Count; i++) {
+				Controller controller = controllerManager.GetController(joinedControllers[i]);
+
 				if(!controller.isSplit){
 					if(controller.splitButton.JustPressed()){
-						SplitController(joinedControllers[i], i);
+						SplitController(controller, i);
 					}
 				}
 			}
@@ -75,25 +90,30 @@ namespace Astrodillos{
 				}
 			}
 
+
+
 		}
 
 		void AddPlayer(Controller controller){
 			GameObject newJoinedPlayer = Instantiate (joinedPlayerPrefab);
-			newJoinedPlayer.transform.SetParent (joinedPlayersParent.transform);
-			newJoinedPlayer.transform.localPosition = new Vector3 (0+(joinedPlayers.Count*150), -400, 0);
+			newJoinedPlayer.transform.SetParent (selectionBoxes[joinedPlayers.Count].gameObject.transform);
+			newJoinedPlayer.transform.localPosition = new Vector3 (0, 0, 0);
 			newJoinedPlayer.transform.localScale = new Vector3 (1, 1, 1);
 			JoinedPlayer joinedPlayer = newJoinedPlayer.GetComponent<JoinedPlayer> ();
-			joinedPlayer.Initialise (controller);
+			joinedPlayer.Initialise (controller, selectionBoxes[joinedPlayers.Count]);
 			joinedPlayers.Add (joinedPlayer);
 
 
 		}
 
-		void SplitController(int controllerIndex, int joinedPlayer){
-			controllerManager.SplitController(controllerIndex);
-			//Add right side to joined players
-			joinedPlayers [joinedPlayer].Initialise (controllerManager.GetController (controllerIndex));
+		void SplitController(Controller controller, int joinedPlayer){
+			int index = controller.controllerIndex;
+			controllerManager.SplitController(controller);
+
+			//Update controller for left side
+			joinedPlayers [joinedPlayer].SetController (controllerManager.GetController (index));
 			joinedControllers.Add(controllerManager.controllerCount-1);
+
 			AddPlayer(controllerManager.GetController(controllerManager.controllerCount-1));
 		}
 
@@ -107,6 +127,7 @@ namespace Astrodillos{
 		}
 
 		void StartCountdown(){
+			countdown = 5;
 			countdownActive = true;
 		}
 

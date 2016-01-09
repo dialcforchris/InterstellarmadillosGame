@@ -33,7 +33,7 @@ namespace Astrodillos{
 				
 				//Add a new controller
 				for (int i = gamepadCount; i < ReInput.controllers.joystickCount; i++) {
-					AddController(new Controller_PS4_Full (i, controllers.Count+1));
+					AddController(new Controller_PS4_Full (i, controllers.Count));
 					gamepadCount++;
 				}
 			}
@@ -52,9 +52,10 @@ namespace Astrodillos{
 			controllers.Add (newController);
 		}
 
-		public void SplitController(int controllerIndex){
-			Controller rightSide = new Controller_PS4_Right (controllers [controllerIndex].playerIndex, controllers [controllerIndex].controllerIndex);
-			controllers [controllerIndex] = new Controller_PS4_Left (controllers [controllerIndex].playerIndex, controllers [controllerIndex].controllerIndex);
+		public void SplitController(Controller controller){
+			int index = controller.controllerIndex;
+			Controller rightSide = new Controller_PS4_Right (controllers [index].playerIndex, controllers.Count);
+			controllers [index] = new Controller_PS4_Left (controllers [index].playerIndex, controllers [index].controllerIndex);
 			controllers.Add (rightSide);
 		}
 		
