@@ -2,11 +2,12 @@
 using System.Collections;
 
 namespace Astrodillos {
-	public class Armadillo : MonoBehaviour {
+	public class Actor_AstrodilloPlayer : Actor {
 
 		public GameObject aimer;
-		public ArmadilloHUD armadilloHUD;
 		public ParticleSystem jetpackParticles;
+
+		ArmadilloHUD armadilloHUD;
 		
 		float jetpackPower = 1.5f;
 		float rotateSpeed = 60f;
@@ -25,10 +26,7 @@ namespace Astrodillos {
 		
 		Rigidbody2D body;
 		Collider2D collider;
-		Controller controller;
 
-		int controllerID;
-		ControllerManager controllerManager;
 
 
 		// Use this for initialization
@@ -52,14 +50,14 @@ namespace Astrodillos {
 			bool thrusting = false;
 
 				
-			if (controllerManager.GetController(controllerID).trigger.GetValue()!=0){
+			if (controller.trigger.GetValue()!=0){
 				if (jetpackFuel > 0) {
 					Thrust();
 					thrusting = true;
 				}
 			}
 
-			if(controllerManager.GetController(controllerID).bumper.JustPressed()){
+			if(controller.bumper.JustPressed()){
 				FireMissile();
 			}
 
@@ -106,7 +104,7 @@ namespace Astrodillos {
 
 		void FireMissile(){
 			if (ammo > 0) {
-				Missile missile = Game.game.missileManager.GetMissile ();
+				Missile missile = GameType_Astrodillos.instance.missileManager.GetMissile ();
 				missile.Spawn (aimer.transform.position, aimer.transform.eulerAngles.z + 90, collider);
 				ammo--;
 				ammoRefillCounter = 0;
@@ -117,11 +115,11 @@ namespace Astrodillos {
 
 
 		void UpdateRotation(){
-			if (controllerManager.GetController(controllerID).rightButton.GetValue()<0) {
+			if (controller.rightButton.GetValue()<0) {
 				Rotate(1);
 				return;
 			}
-			if (controllerManager.GetController(controllerID).rightButton.GetValue()>0) {
+			if (controller.rightButton.GetValue()>0) {
 				Rotate(-1);
 				return;
 			}
@@ -131,10 +129,10 @@ namespace Astrodillos {
 		}
 
 		void UpdateAiming(){
-			if (controllerManager.GetController(controllerID).upButton.GetValue()<0) {
+			if (controller.upButton.GetValue()<0) {
 				RotateAimer(-1);
 			}
-			if (controllerManager.GetController(controllerID).upButton.GetValue()>0) {
+			if (controller.upButton.GetValue()>0) {
 				RotateAimer(1);
 			}
 
@@ -149,9 +147,11 @@ namespace Astrodillos {
 			aimer.transform.localEulerAngles += new Vector3 (0, 0, aimTurnSpeed) * Time.deltaTime * rotDir;
 		}
 
-		public void SetController(Controller _controller){
-			controller = _controller;
+		//Assigns a hud to this player
+		public void AssignHUD(ArmadilloHUD hud){
+			armadilloHUD = hud;
 		}
+
 	}
 }
 

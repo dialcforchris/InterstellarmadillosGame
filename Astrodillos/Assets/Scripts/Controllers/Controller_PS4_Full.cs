@@ -17,7 +17,7 @@ namespace Astrodillos{
 	//Split sides of the controller
 	public class Controller_PS4_Left : Controller {
 		
-		public Controller_PS4_Left(int player, int _controllerIndex) : base(_controllerIndex){
+		public Controller_PS4_Left(int player, int _controllerIndex) : base(player,_controllerIndex){
 			splitSide = SplitSide.left;
 			trigger = new ControlInputAxis (player, "trigger_left");
 			bumper = new ControlInputButton (player, "bumper_left");
@@ -29,7 +29,7 @@ namespace Astrodillos{
 
 	public class Controller_PS4_Right : Controller {
 		
-		public Controller_PS4_Right(int player, int _controllerIndex) : base(_controllerIndex){
+		public Controller_PS4_Right(int player, int _controllerIndex) : base(player,_controllerIndex){
 			splitSide = SplitSide.right;
 			trigger = new ControlInputAxis (player, "trigger_right");
 			bumper = new ControlInputButton (player, "bumper_right");

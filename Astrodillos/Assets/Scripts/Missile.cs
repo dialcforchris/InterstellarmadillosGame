@@ -71,13 +71,13 @@ namespace Astrodillos{
 		void Explode(){
 
 			gameObject.SetActive (false);
-			Game.game.Explosion (transform.position);
+			GameType_Astrodillos.instance.Explosion (transform.position);
 			AddMissileBackToPool ();
 		}
 
 		void AddMissileBackToPool(){
 			active = false;
-			Game.game.missileManager.AddMissileBackToPool (this);
+			GameType_Astrodillos.instance.missileManager.AddMissileBackToPool (this);
 		}
 	}
 }

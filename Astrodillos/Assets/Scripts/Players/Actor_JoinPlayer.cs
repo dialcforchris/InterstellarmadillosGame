@@ -4,7 +4,7 @@ using System.Collections;
 
 namespace Astrodillos{
 		
-	public class JoinedPlayer : MonoBehaviour {
+	public class Actor_JoinPlayer : Actor {
 
 		public Image controllerTypeImg;
 		public Sprite pad, pad_left, pad_right;
@@ -12,26 +12,21 @@ namespace Astrodillos{
 
 		bool ready = false;
 
-
-		Controller controller;
 		PlayerSelectionBox selectionBox;
 
 		// Use this for initialization
 		void Awake () {
+
 		}
 
-		public void Initialise(Controller _controller, PlayerSelectionBox _selectionBox){
-			SetController (_controller);
+
+		public void SetSelectionBox(PlayerSelectionBox _selectionBox){
 			selectionBox = _selectionBox;
-
-
-
 		}
 
-		public void SetController(Controller _controller){
-			controller = _controller;
-			//Debug.Log (controller.controllerIndex);
-			//Set pad sprite
+		public override void SetController(int id){
+			base.SetController (id);
+
 			switch (controller.splitSide) {
 			case Controller.SplitSide.none:
 				controllerTypeImg.sprite = pad;
@@ -59,9 +54,6 @@ namespace Astrodillos{
 		}
 
 		public bool PressedReady(){
-			if (controller.bumper.JustPressed ()) {
-				Debug.Log(controller.controllerIndex);
-			}
 			return controller.bumper.JustPressed ();
 		}
 

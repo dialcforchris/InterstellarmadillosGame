@@ -20,7 +20,7 @@ namespace Astrodillos{
 		
 		void Awake() {
 
-			DontDestroyOnLoad (gameObject);
+
 			CheckForNewControllers ();
 		}
 		

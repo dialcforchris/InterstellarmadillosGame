@@ -6,13 +6,15 @@ using System.Collections.Generic;
 namespace Astrodillos{
 	public class JoinMenu : MonoBehaviour {
 
-		public ControllerManager controllerManager;
+
 		public Text countdownText;
 		public GameObject joinedPlayersParent;
 		public GameObject joinedPlayerPrefab;
 		public List<PlayerSelectionBox> selectionBoxes;
 
-		List<JoinedPlayer> joinedPlayers = new List<JoinedPlayer>();
+		ControllerManager controllerManager;
+
+		List<Actor_JoinPlayer> joinedPlayers = new List<Actor_JoinPlayer>();
 		List<int> joinedControllers = new List<int>();
 		List<int> notJoinedControllers = new List<int>();
 
@@ -20,7 +22,7 @@ namespace Astrodillos{
 		bool countdownActive = false;
 		// Use this for initialization
 		void Awake () {
-
+			controllerManager = GameManager.instance.controllerManager;
 		}
 		
 		// Update is called once per frame
@@ -99,8 +101,11 @@ namespace Astrodillos{
 			newJoinedPlayer.transform.SetParent (selectionBoxes[joinedPlayers.Count].gameObject.transform);
 			newJoinedPlayer.transform.localPosition = new Vector3 (0, 0, 0);
 			newJoinedPlayer.transform.localScale = new Vector3 (1, 1, 1);
-			JoinedPlayer joinedPlayer = newJoinedPlayer.GetComponent<JoinedPlayer> ();
-			joinedPlayer.Initialise (controller, selectionBoxes[joinedPlayers.Count]);
+			Actor_JoinPlayer joinedPlayer = newJoinedPlayer.GetComponent<Actor_JoinPlayer> ();
+
+			joinedPlayer.SetController (controller.controllerIndex);
+			joinedPlayer.SetSelectionBox(selectionBoxes[joinedPlayers.Count]);
+			GameManager.instance.actorManager.AddActor (joinedPlayer);
 			joinedPlayers.Add (joinedPlayer);
 
 
@@ -111,9 +116,8 @@ namespace Astrodillos{
 			controllerManager.SplitController(controller);
 
 			//Update controller for left side
-			joinedPlayers [joinedPlayer].SetController (controllerManager.GetController (index));
+			joinedPlayers [joinedPlayer].SetController (index);
 			joinedControllers.Add(controllerManager.controllerCount-1);
-
 			AddPlayer(controllerManager.GetController(controllerManager.controllerCount-1));
 		}
 
@@ -132,6 +136,7 @@ namespace Astrodillos{
 		}
 
 		void StartGame(){
+			GameManager.instance.actorManager.ParentActors ();
 			Application.LoadLevel ("Astrodillos");
 		}
 
