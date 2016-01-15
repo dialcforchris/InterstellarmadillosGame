@@ -1,50 +1,111 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class AsteroidBehaviour : MonoBehaviour {
+namespace Astrodillos{
 
-    float destroyBuffer = 2.0f;
-    public bool L_or_R;
-    public float speed = 100;
-   
-	// Use this for initialization
-	void Start () 
-    {
-        if (gameObject.transform.position.x>Camera.main.ViewportToWorldPoint(new Vector2(1,0)).x)
-        {
-            speed = speed * -1;
-            L_or_R = true;
-        }
-	    
+	public class AsteroidBehaviour : MonoBehaviour {
+
+		public GameObject asteroid;
+		public SpriteRenderer gravitySprite;
+
+		Rigidbody2D body;
+
+		//When the asteroid comes on screen. Destroys when this is true but not on screen anymore
+		bool beenVisible = false;
+		
+
+		//Spawn ranges for each edge of the screen - top, right
+		Vector2[] spawnRanges = new Vector2[2] {new Vector2(-10,10),new Vector2(-17,17)};
+
+	   
+		// Use this for initialization
+		void Awake () 
+	    {
+			body = gameObject.GetComponent<Rigidbody2D> ();
+
+			Vector2 spawnPosition = new Vector2 ();
+
+			//Top or right of screen
+			switch (RandomBoolean()) {
+			case true:
+				spawnPosition = new Vector2(Random.Range(-12, 12), 14);
+				break;
+			case false:
+				spawnPosition = new Vector2(20,Random.Range(-17, 17));
+				break;
+			}
+
+			//Do we flip spawn pos from right/top to left/down?
+			if (RandomBoolean ()) {
+				spawnPosition *= -1;
+			}
+
+			//Set the position of the asteroid
+			gameObject.transform.position = new Vector3 (spawnPosition.x, spawnPosition.y, 0);
+
+			//Use the offset from the centre to work out angle and speed
+			float angle = Mathf.Atan2 (spawnPosition.x, -spawnPosition.y) * Mathf.Rad2Deg;
+
+
+			//Modify angle for randomness
+			angle += 90 + Random.Range (-40, 40);
+
+			//Back to radians
+			angle *= Mathf.Deg2Rad;
+
+			//Random speed
+			float speed = Random.Range (20.0f, 50.0f);
+
+			//Speed vector from angle
+			Vector2 force = new Vector2 (Mathf.Cos (angle), Mathf.Sin (angle))*speed;
+
+			//Add the force
+
+			body.AddForce (force);
+			body.angularVelocity = speed*2;
+
+			//Rotate other direction
+			if (RandomBoolean ()) {
+				body.angularVelocity *= -1;
+			}
+		    
+		}
+		
+		// Update is called once per frame
+		void Update () 
+	    {
+			if (!beenVisible) {
+				beenVisible = gravitySprite.isVisible;
+			} 
+			else {
+				//No longer visible
+				if(!gravitySprite.isVisible){
+					Destroy(gameObject);
+				}
+			}
+
+
+	         //
+	            
+	        
+		}
+	    void OnCollisionEnter2D(Collision2D other)
+	    {
+
+			GameType_Astrodillos.instance.Explosion (transform.position,0.75f);
+
+	        Destroy(gameObject);
+	        
+	    }
+
+		bool RandomBoolean ()
+		{
+			if (Random.value >= 0.5f)
+			{
+				return true;
+			}
+			return false;
+		}
 	}
-	
-	// Update is called once per frame
-	void Update () 
-    {
-      
-        gameObject.transform.Rotate(new Vector3(0, 0, Mathf.PI * Time.deltaTime* -speed));
-        gameObject.GetComponent<Rigidbody2D>().velocity = new Vector3(Time.deltaTime * speed, 0, 0) ;
-        if (L_or_R)
-        {
-            if (gameObject.transform.position.x+destroyBuffer<Camera.main.ViewportToWorldPoint(new Vector2(0,0)).x)
-            {
-                Destroy(gameObject);
-            }
-        }
-        else if (!L_or_R)
-        {
-            if (gameObject.transform.position.x-destroyBuffer>Camera.main.ViewportToWorldPoint(new Vector2(1,0)).x)
-            {
-                Destroy(gameObject);
-            }
-        }
-	}
-    void OnCollisionEnter2D(Collision2D other)
-    {
-        if (!other.transform.GetComponent<AsteroidBehaviour>())
-        {
-            //Instantiate(explosion, gameObject.transform.position, gameObject.transform.rotation);
-            Destroy(gameObject);
-        }
-    }
+
 }
