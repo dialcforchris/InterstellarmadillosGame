@@ -117,9 +117,11 @@ namespace Astrodillos {
 		void UpdateRotation(){
 			//Direction the analog stick is facing
 			Vector2 stickAim = new Vector2 (controller.rightButton.GetValue (), controller.upButton.GetValue ());
-			if (stickAim.x != 0 && stickAim.y != 0) {
+			if (stickAim.x != 0 || stickAim.y != 0) {
 				float stickAngle = Mathf.Atan2 (stickAim.x, -stickAim.y) * Mathf.Rad2Deg;
+
 				transform.localEulerAngles = new Vector3 (0, 0, stickAngle+90);
+
 			}
 
 

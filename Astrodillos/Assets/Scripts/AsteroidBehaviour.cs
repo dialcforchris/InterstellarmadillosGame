@@ -5,8 +5,7 @@ namespace Astrodillos{
 
 	public class AsteroidBehaviour : MonoBehaviour {
 
-		public GameObject asteroid;
-		public SpriteRenderer gravitySprite;
+		SpriteRenderer spriteRenderer;
 
 		Rigidbody2D body;
 
@@ -21,7 +20,8 @@ namespace Astrodillos{
 		// Use this for initialization
 		void Awake () 
 	    {
-			body = gameObject.GetComponent<Rigidbody2D> ();
+			body = GetComponent<Rigidbody2D> ();
+			spriteRenderer = GetComponent<SpriteRenderer> ();
 
 			Vector2 spawnPosition = new Vector2 ();
 
@@ -75,11 +75,11 @@ namespace Astrodillos{
 		void Update () 
 	    {
 			if (!beenVisible) {
-				beenVisible = gravitySprite.isVisible;
+				beenVisible = spriteRenderer.isVisible;
 			} 
 			else {
 				//No longer visible
-				if(!gravitySprite.isVisible){
+				if(!spriteRenderer.isVisible){
 					Destroy(gameObject);
 				}
 			}
