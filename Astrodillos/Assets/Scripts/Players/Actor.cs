@@ -50,7 +50,6 @@ public class Actor : MonoBehaviour {
 
 	//Set's character along with spritesheet
 	public void SetCharacter(string name){
-		Debug.Log (name);
 		characterName = name;
 
 		//Load an array of all sprites in the spritesheet
