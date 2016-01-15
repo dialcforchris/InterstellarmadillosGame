@@ -1,11 +1,13 @@
 fileFormatVersion: 2
-guid: 9240cab260086504293b4260949b93b9
-timeCreated: 1452873414
+guid: 7c619e6123ebc7746922d8ae1549c380
+timeCreated: 1452875090
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
-    21300000: armadillo_placeholder
-    21300002: armadillo_placeholder_shell
+    21300000: armadillo_pink
+    21300002: armadillo_pink_shell
+    21300004: armadillo
+    21300006: armadillo_shell
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -32,7 +34,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     filterMode: -1
-    aniso: 16
+    aniso: -1
     mipBias: -1
     wrapMode: 1
   nPOTScale: 0
@@ -52,7 +54,7 @@ TextureImporter:
   buildTargetSettings: []
   spriteSheet:
     sprites:
-    - name: armadillo_placeholder
+    - name: armadillo
       rect:
         serializedVersion: 2
         x: 1
@@ -62,7 +64,7 @@ TextureImporter:
       alignment: 9
       pivot: {x: .5, y: .471910119}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: armadillo_placeholder_shell
+    - name: armadillo_shell
       rect:
         serializedVersion: 2
         x: 131

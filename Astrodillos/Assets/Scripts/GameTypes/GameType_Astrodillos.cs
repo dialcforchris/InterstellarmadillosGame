@@ -75,6 +75,7 @@ namespace Astrodillos {
 				actor.Spawn(spawnPoints[i], spawnAngle);
 
 				actor.SetController(actorManager.actors[i].controllerID);
+				actor.SetCharacter(actorManager.actors[i].GetName());
 
 				//Spawn and assign huds
 				hudManager.CreateHUD(actor);

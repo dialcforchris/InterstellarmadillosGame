@@ -9,8 +9,12 @@ public class ActorManager : MonoBehaviour {
 
 	public GameObject astrodilloPlayerPrefab;
 
+
+
 	//A list of actors
 	public List<Actor> actors { get; private set; }
+
+	string[] characterNames = new string[8] {"Beige", "Red", "Green", "Cyan", "Pink", "Yellow", "Blue", "Purple"};
 
 
 	// Use this for initialization
@@ -42,6 +46,7 @@ public class ActorManager : MonoBehaviour {
 		Actor_AstrodilloPlayer player = newPlayer.GetComponent<Actor_AstrodilloPlayer> ();
 		
 		player.SetController (controllerIndex);
+		player.SetCharacter (characterNames[controllerIndex]);
 		AddActor (player);
 
 		HUDManager.instance.CreateHUD (player);
@@ -60,5 +65,9 @@ public class ActorManager : MonoBehaviour {
 
 	public void ClearActors(){
 		actors.Clear ();
+	}
+
+	public string GetCharacterName(int index){
+		return characterNames [index];
 	}
 }

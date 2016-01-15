@@ -9,14 +9,18 @@ namespace Astrodillos{
 		public Image controllerTypeImg;
 		public Sprite pad, pad_left, pad_right;
 
+		Image image;
+
 
 		bool ready = false;
 
 		PlayerSelectionBox selectionBox;
 
 		// Use this for initialization
-		void Awake () {
+		protected override void Awake () {
+			base.Awake ();
 
+			image = GetComponent<Image> ();
 		}
 
 
@@ -65,6 +69,15 @@ namespace Astrodillos{
 
 		public bool GetReady(){
 			return ready;
+		}
+
+		public override Sprite GetSprite(){
+			return image.sprite;
+		}
+
+		//Implemented in children
+		public override void SetSprite(Sprite sprite){
+			image.sprite = sprite;
 		}
 	}
 }

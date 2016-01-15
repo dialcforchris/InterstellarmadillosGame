@@ -6,7 +6,7 @@
         <key>texturePackerVersion</key>
         <string>4.0.1</string>
         <key>fileName</key>
-        <string>C:/Users/Alan/Documents/UWE/Games Tech/Year 3/CGD/InterstellarmadillosGame/Art/Armadillos/placeholder_atlas.tps</string>
+        <string>C:/Users/Alan/Documents/UWE/Games Tech/Year 3/CGD/InterstellarmadillosGame/Art/Armadillos/cyan_atlas.tps</string>
         <key>autoSDSettings</key>
         <array>
             <struct type="AutoSDSettings">
@@ -147,7 +147,7 @@
             <key>datafile</key>
             <struct type="DataFile">
                 <key>name</key>
-                <filename>../../Astrodillos/Assets/Sprites/Armadillos/Armadillo_Placeholder_Atlas.tpsheet</filename>
+                <filename>../../Astrodillos/Assets/Resources/Spritesheets/Armadillos/Armadillo_Cyan_Atlas.tpsheet</filename>
             </struct>
         </map>
         <key>multiPack</key>
@@ -192,8 +192,8 @@
         </struct>
         <key>fileList</key>
         <array>
-            <filename>Placeholder/armadillo_placeholder.png</filename>
-            <filename>Placeholder/armadillo_placeholder_shell.png</filename>
+            <filename>Cyan/armadillo.png</filename>
+            <filename>Cyan/armadillo_shell.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

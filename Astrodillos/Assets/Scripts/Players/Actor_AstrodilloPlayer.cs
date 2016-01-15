@@ -10,6 +10,7 @@ namespace Astrodillos {
 		}
 
 		public ParticleSystem jetpackParticles;
+		SpriteRenderer spriteRenderer;
 		PlayerState playerState = PlayerState.Alive;
 
 		ArmadilloHUD armadilloHUD;
@@ -41,9 +42,11 @@ namespace Astrodillos {
 			fuelRefillCounter = fuelRefillTime;
 			body = GetComponent<Rigidbody2D>();
 			collider = GetComponent<Collider2D> ();
+			spriteRenderer = GetComponent<SpriteRenderer> ();
 		}
 
-		void Start(){
+		protected override void Start(){
+			base.Start ();
 			//Debug default to keyboard
 			if (controllerManager == null) {
 				controllerManager = GameObject.Find("ControllerManager").GetComponent<ControllerManager>();
@@ -157,6 +160,15 @@ namespace Astrodillos {
 			base.Spawn (spawnPos, spawnAngle);
 
 			playerState = PlayerState.Alive;
+		}
+
+		public override Sprite GetSprite(){
+			return spriteRenderer.sprite;
+		}
+
+		//Implemented in children
+		public override void SetSprite(Sprite sprite){
+			spriteRenderer.sprite = sprite;
 		}
 
 	}

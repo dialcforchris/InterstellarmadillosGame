@@ -112,6 +112,7 @@ namespace Astrodillos{
 			Actor_JoinPlayer joinedPlayer = newJoinedPlayer.GetComponent<Actor_JoinPlayer> ();
 
 			joinedPlayer.SetController (controller.controllerIndex);
+			joinedPlayer.SetCharacter (actorManager.GetCharacterName (controller.controllerIndex));
 			joinedPlayer.SetSelectionBox(selectionBoxes[joinedPlayers.Count]);
 			actorManager.AddActor (joinedPlayer);
 			joinedPlayers.Add (joinedPlayer);

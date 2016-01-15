@@ -1,0 +1,14 @@
+#
+# Sprite sheet data for Unity.
+#
+# To import these sprites into your Unity project, download "TexturePackerImporter":
+# http://www.codeandweb.com/texturepacker/unity
+#
+# $TexturePacker:SmartUpdate:bf64905bfc181ba2f34254f6a748b261:e5d05bddb2f35051ab80cd58e8b9016f:6badcf2c5fec188124f8355e5b80270c$
+#
+:format=40000
+:texture=Armadillo_Blue_Atlas.png
+:size=256x128
+
+armadillo;1;38;128;89;0.5;0.4719101123595506; 6;101;50;128;23;128;18;53;0;0;11;0;89; 4;3;4;5;0;2;3;0;1;2;0;3;5
+armadillo_shell;131;81;72;46;0.5833333333333334;0.5434782608695652; 4;72;0;0;0;0;46;72;46; 2;1;2;3;0;1;3
