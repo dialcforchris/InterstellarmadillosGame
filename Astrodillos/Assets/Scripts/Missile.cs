@@ -16,7 +16,7 @@ namespace Astrodillos{
 		float missileSpeed = 30f;
 
 		float aliveTime = 0;
-		float maxAliveTime = 10;
+		float maxAliveTime = 100;
 		// Use this for initialization
 		void Awake () {
 			body = GetComponent<Rigidbody2D> ();

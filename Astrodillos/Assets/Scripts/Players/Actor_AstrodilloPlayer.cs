@@ -4,7 +4,6 @@ using System.Collections;
 namespace Astrodillos {
 	public class Actor_AstrodilloPlayer : Actor {
 
-		public GameObject aimer;
 		public ParticleSystem jetpackParticles;
 
 		ArmadilloHUD armadilloHUD;
@@ -14,7 +13,7 @@ namespace Astrodillos {
 		float aimTurnSpeed = 75;
 
 		float jetpackFuel = 1.0f;
-		float fuelBurnRate = 0.4f;
+		float fuelBurnRate = 0.2f;
 		float fuelRefillRate = 0.5f;
 		float fuelRefillTime = 1f; //Used to start refill after player stops thrusting
 		float fuelRefillCounter;
@@ -62,7 +61,6 @@ namespace Astrodillos {
 			}
 
 			UpdateRotation ();
-			UpdateAiming ();
 
 
 			if (!thrusting) {
@@ -105,7 +103,7 @@ namespace Astrodillos {
 		void FireMissile(){
 			if (ammo > 0) {
 				Missile missile = GameType_Astrodillos.instance.missileManager.GetMissile ();
-				missile.Spawn (aimer.transform.position, aimer.transform.eulerAngles.z + 90, collider);
+				missile.Spawn (gameObject.transform.position, gameObject.transform.localEulerAngles.z-180, collider);
 				ammo--;
 				ammoRefillCounter = 0;
 				armadilloHUD.RemoveAmmo();
@@ -115,36 +113,20 @@ namespace Astrodillos {
 
 
 		void UpdateRotation(){
-			if (controller.rightButton.GetValue()<0) {
-				Rotate(1);
-				return;
-			}
-			if (controller.rightButton.GetValue()>0) {
-				Rotate(-1);
-				return;
+			//Direction the analog stick is facing
+			Vector2 stickAim = new Vector2 (controller.rightButton.GetValue (), controller.upButton.GetValue ());
+			if (stickAim.x != 0 && stickAim.y != 0) {
+				float stickAngle = Mathf.Atan2 (stickAim.x, -stickAim.y) * Mathf.Rad2Deg;
+				transform.localEulerAngles = new Vector3 (0, 0, stickAngle+90);
 			}
 
-			//Stop rotating
-			Rotate (0);
-		}
-
-		void UpdateAiming(){
-			if (controller.upButton.GetValue()<0) {
-				RotateAimer(-1);
-			}
-			if (controller.upButton.GetValue()>0) {
-				RotateAimer(1);
-			}
 
 		}
+
 
 
 		void Rotate(float rotDir){
 			body.angularVelocity = rotDir * rotateSpeed;
-		}
-
-		void RotateAimer(float rotDir){
-			aimer.transform.localEulerAngles += new Vector3 (0, 0, aimTurnSpeed) * Time.deltaTime * rotDir;
 		}
 
 		//Assigns a hud to this player
