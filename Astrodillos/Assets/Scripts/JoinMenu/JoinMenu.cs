@@ -12,7 +12,15 @@ namespace Astrodillos{
 		public GameObject joinedPlayerPrefab;
 		public List<PlayerSelectionBox> selectionBoxes;
 
-		ControllerManager controllerManager;
+		ControllerManager controllerManager { 
+			get{ return ControllerManager.instance;}
+			set{}
+		}
+
+		ActorManager actorManager{
+			get{ return ActorManager.instance;}
+			set{}
+		}
 
 		List<Actor_JoinPlayer> joinedPlayers = new List<Actor_JoinPlayer>();
 		List<int> joinedControllers = new List<int>();
@@ -22,7 +30,7 @@ namespace Astrodillos{
 		bool countdownActive = false;
 		// Use this for initialization
 		void Awake () {
-			controllerManager = GameManager.instance.controllerManager;
+
 		}
 		
 		// Update is called once per frame
@@ -105,7 +113,7 @@ namespace Astrodillos{
 
 			joinedPlayer.SetController (controller.controllerIndex);
 			joinedPlayer.SetSelectionBox(selectionBoxes[joinedPlayers.Count]);
-			GameManager.instance.actorManager.AddActor (joinedPlayer);
+			actorManager.AddActor (joinedPlayer);
 			joinedPlayers.Add (joinedPlayer);
 
 
@@ -136,7 +144,7 @@ namespace Astrodillos{
 		}
 
 		void StartGame(){
-			GameManager.instance.actorManager.ParentActors ();
+			actorManager.ParentActors ();
 			Application.LoadLevel ("Astrodillos");
 		}
 

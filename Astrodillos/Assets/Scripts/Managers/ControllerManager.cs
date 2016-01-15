@@ -8,6 +8,9 @@ using System.Text;
 
 namespace Astrodillos{
 	public class ControllerManager : MonoBehaviour {
+
+		public static ControllerManager instance;
+		InputManager rewiredInput;
 		
 		//Controllers
 		List<Controller> controllers = new List<Controller>();
@@ -20,6 +23,7 @@ namespace Astrodillos{
 		
 		void Awake() {
 
+			instance = this;
 
 			CheckForNewControllers ();
 		}

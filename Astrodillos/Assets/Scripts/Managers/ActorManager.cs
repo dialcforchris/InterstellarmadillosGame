@@ -5,18 +5,46 @@ using Astrodillos;
 
 public class ActorManager : MonoBehaviour {
 
+	public static ActorManager instance;
+
+	public GameObject astrodilloPlayerPrefab;
+
 	//A list of actors
 	public List<Actor> actors { get; private set; }
 
 
 	// Use this for initialization
 	void Awake () {
+		instance = this;
 		actors = new List<Actor> ();
+
+
+	}
+
+	void Start(){
+		//Debug
+		if (GameType_Astrodillos.instance != null) {
+			AddPlayer(0);
+		}
 	}
 	
 	// Update is called once per frame
 	void Update () {
 	
+	}
+
+	//Debug
+	public void AddPlayer(int controllerIndex){
+		GameObject newPlayer = Instantiate (astrodilloPlayerPrefab);
+		newPlayer.transform.SetParent (gameObject.transform);
+		newPlayer.transform.localPosition = new Vector3 (0, 0, 0);
+		newPlayer.transform.localScale = new Vector3 (1, 1, 1);
+		Actor_AstrodilloPlayer player = newPlayer.GetComponent<Actor_AstrodilloPlayer> ();
+		
+		player.SetController (controllerIndex);
+		AddActor (player);
+
+		HUDManager.instance.CreateHUD (player);
 	}
 
 	public void AddActor(Actor actor){

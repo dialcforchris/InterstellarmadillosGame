@@ -10,12 +10,15 @@ namespace Astrodillos {
 
 		public MissileManager missileManager;
 		public ParticleSystem explosionParticles;
-		public HUDManager hudManager;
 
+		HUDManager hudManager {
+			set{}
+			get{ return HUDManager.instance; }
+		}
 
 		ActorManager actorManager {
 			set {}
-			get { return GameManager.instance.actorManager; }
+			get { return ActorManager.instance; }
 		}
 
 		List<Controller> controllers;
@@ -23,11 +26,17 @@ namespace Astrodillos {
 		// Use this for initialization
 		void Awake () {
 			instance = this;
-			GameManager.instance.gameType = this;
+			
+			if (ActorManager.instance != null) {
+				//Spawn players when we start
+				SpawnPlayers ();
+			}
 
 
-			//Spawn players when we start
-			SpawnPlayers ();
+		}
+
+		void Start(){
+
 		}
 		
 		// Update is called once per frame
@@ -51,9 +60,9 @@ namespace Astrodillos {
 			explosionParticles.Emit (100);
 		}
 
-		void SpawnPlayers(){
+		public void SpawnPlayers(){
 			List<Actor_AstrodilloPlayer> newPlayers = new List<Actor_AstrodilloPlayer>();
-		
+
 			for (int i = 0; i<actorManager.actors.Count; i++) {
 				//TODO make sure right character spawns
 				GameObject player = Instantiate(actorPrefab);

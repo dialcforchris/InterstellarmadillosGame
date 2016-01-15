@@ -5,14 +5,16 @@ using System.Collections.Generic;
 namespace Astrodillos{
 	public class HUDManager : MonoBehaviour {
 
+		public static HUDManager instance;
+
 		public GameObject hudPrefab;
 
 		List<ArmadilloHUD> huds = new List<ArmadilloHUD>();
 
 
 		// Use this for initialization
-		void Start () {
-		
+		void Awake () {
+			instance = this;
 		}
 		
 		// Update is called once per frame

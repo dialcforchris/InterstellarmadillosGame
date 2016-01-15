@@ -10,7 +10,7 @@ public class Actor : MonoBehaviour {
 	protected string characterName;
 	protected ControllerManager controllerManager{
 		set {}
-		get { return GameManager.instance.controllerManager; }
+		get { return ControllerManager.instance; }
 	}
 	protected Controller controller{
 		set{}
