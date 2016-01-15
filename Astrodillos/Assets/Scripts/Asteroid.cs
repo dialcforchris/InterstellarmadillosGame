@@ -3,8 +3,9 @@ using System.Collections;
 
 namespace Astrodillos{
 
-	public class AsteroidBehaviour : MonoBehaviour {
+	public class Asteroid : MonoBehaviour {
 
+		public ParticleSystem flameParticles;
 		SpriteRenderer spriteRenderer;
 
 		Rigidbody2D body;
@@ -70,6 +71,10 @@ namespace Astrodillos{
 			}
 		    
 		}
+
+		void Start(){
+			flameParticles.Play ();
+		}
 		
 		// Update is called once per frame
 		void Update () 
@@ -95,6 +100,10 @@ namespace Astrodillos{
 			GameType_Astrodillos.instance.Explosion (transform.position,0.75f);
 
 	        Destroy(gameObject);
+
+			if(other.gameObject.GetComponent<Actor_AstrodilloPlayer>()){
+				other.gameObject.GetComponent<Actor_AstrodilloPlayer>().TakeDamage();
+			}
 	        
 	    }
 

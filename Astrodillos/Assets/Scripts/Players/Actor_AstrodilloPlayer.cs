@@ -4,9 +4,13 @@ using System.Collections;
 namespace Astrodillos {
 	public class Actor_AstrodilloPlayer : Actor {
 
-
+		enum PlayerState{
+			Alive,
+			Dead
+		}
 
 		public ParticleSystem jetpackParticles;
+		PlayerState playerState = PlayerState.Alive;
 
 		ArmadilloHUD armadilloHUD;
 		
@@ -31,7 +35,8 @@ namespace Astrodillos {
 
 
 		// Use this for initialization
-		void Awake () {
+		protected override void Awake () {
+			base.Awake ();
 			ammoRefillCounter = ammoRefillTime;
 			fuelRefillCounter = fuelRefillTime;
 			body = GetComponent<Rigidbody2D>();
@@ -50,19 +55,32 @@ namespace Astrodillos {
 		void Update () {
 			bool thrusting = false;
 
-				
-			if (controller.trigger.GetValue()!=0){
-				if (jetpackFuel > 0) {
-					Thrust();
-					thrusting = true;
+			switch (playerState) {
+			case PlayerState.Alive:{
+				if (controller.trigger.GetValue()!=0){
+					if (jetpackFuel > 0) {
+						Thrust();
+						thrusting = true;
+					}
 				}
-			}
+				
+				if(controller.bumper.JustPressed()){
+					FireMissile();
+				}
+				
+				UpdateRotation ();
 
-			if(controller.bumper.JustPressed()){
-				FireMissile();
-			}
+				if (ammoRefillCounter < ammoRefillTime) {
+					ammoRefillCounter += Time.deltaTime;
+					if(ammoRefillCounter >= ammoRefillTime){
+						armadilloHUD.RefillAmmo();
+						ammo++;
+					}
+				}
 
-			UpdateRotation ();
+				break;
+			}
+			}
 
 
 			if (!thrusting) {
@@ -72,21 +90,13 @@ namespace Astrodillos {
 				else{
 					jetpackFuel += fuelRefillRate * Time.deltaTime;
 				}
-
+				
 				jetpackParticles.Stop();
 			}
-
+			
 			//Clamp and update fuel hud
 			jetpackFuel = Mathf.Clamp (jetpackFuel, 0, 1);
 			armadilloHUD.UpdateFuelFill (jetpackFuel);
-
-			if (ammoRefillCounter < ammoRefillTime) {
-				ammoRefillCounter += Time.deltaTime;
-				if(ammoRefillCounter >= ammoRefillTime){
-					armadilloHUD.RefillAmmo();
-					ammo++;
-				}
-			}
 		}
 		
 		void Thrust(){
@@ -118,10 +128,10 @@ namespace Astrodillos {
 			//Direction the analog stick is facing
 			Vector2 stickAim = new Vector2 (controller.rightButton.GetValue (), controller.upButton.GetValue ());
 			if (stickAim.x != 0 || stickAim.y != 0) {
-				float stickAngle = Mathf.Atan2 (stickAim.x, -stickAim.y) * Mathf.Rad2Deg;
+				float stickAngle = Mathf.Atan2 (stickAim.y, stickAim.x) * Mathf.Rad2Deg;
 
-				transform.localEulerAngles = new Vector3 (0, 0, stickAngle+90);
-
+				transform.localEulerAngles = new Vector3 (0, 0, stickAngle-180);
+				body.angularVelocity = 0;
 			}
 
 
@@ -136,6 +146,17 @@ namespace Astrodillos {
 		//Assigns a hud to this player
 		public void AssignHUD(ArmadilloHUD hud){
 			armadilloHUD = hud;
+		}
+
+		public void TakeDamage(){
+			playerState = PlayerState.Dead;
+			animator.SetTrigger ("Kill");
+		}
+
+		public override void Spawn(Vector2 spawnPos, float spawnAngle){
+			base.Spawn (spawnPos, spawnAngle);
+
+			playerState = PlayerState.Alive;
 		}
 
 	}

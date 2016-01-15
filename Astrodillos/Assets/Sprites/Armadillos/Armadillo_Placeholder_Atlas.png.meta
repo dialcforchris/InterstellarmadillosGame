@@ -1,9 +1,11 @@
 fileFormatVersion: 2
-guid: dd479d4b0ad2f0945948344b2afae440
-timeCreated: 1449753098
-licenseType: Pro
+guid: 9240cab260086504293b4260949b93b9
+timeCreated: 1452873414
+licenseType: Free
 TextureImporter:
-  fileIDToRecycleName: {}
+  fileIDToRecycleName:
+    21300000: armadillo_placeholder
+    21300002: armadillo_placeholder_shell
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -38,7 +40,7 @@ TextureImporter:
   rGBM: 0
   compressionQuality: 50
   allowsAlphaSplitting: 0
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -49,7 +51,27 @@ TextureImporter:
   textureType: 8
   buildTargetSettings: []
   spriteSheet:
-    sprites: []
+    sprites:
+    - name: armadillo_placeholder
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 38
+        width: 128
+        height: 89
+      alignment: 9
+      pivot: {x: .5, y: .471910119}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: armadillo_placeholder_shell
+      rect:
+        serializedVersion: 2
+        x: 131
+        y: 81
+        width: 72
+        height: 46
+      alignment: 9
+      pivot: {x: .583333313, y: .543478251}
+      border: {x: 0, y: 0, z: 0, w: 0}
   spritePackingTag: 
   userData: 
   assetBundleName: 

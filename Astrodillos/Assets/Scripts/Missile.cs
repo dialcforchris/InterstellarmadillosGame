@@ -61,10 +61,20 @@ namespace Astrodillos{
 					//If not ignore collider (player)
 					if(col != ignoreCollider){
 						Explode();
+						if(col.gameObject.GetComponent<Actor_AstrodilloPlayer>()){
+							col.gameObject.GetComponent<Actor_AstrodilloPlayer>().TakeDamage();
+						}
 					}
 				}
 
 
+			}
+		}
+
+		void OnTriggerExit2D(Collider2D col){
+			//After missile leaves player, it can hit and kill them
+			if (col == ignoreCollider) {
+				ignoreCollider = null;
 			}
 		}
 		

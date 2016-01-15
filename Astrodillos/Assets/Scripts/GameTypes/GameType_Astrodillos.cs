@@ -23,6 +23,9 @@ namespace Astrodillos {
 
 		List<Controller> controllers;
 
+		Vector2[] spawnPoints = new Vector2[8] { new Vector2(-15,-8), new Vector2(15,8), new Vector2(-15,8), new Vector2(15,-8),
+												new Vector2(0,8), new Vector2(0,-8), new Vector2(-15,0), new Vector2(15,0)};
+
 		// Use this for initialization
 		void Awake () {
 			instance = this;
@@ -66,7 +69,10 @@ namespace Astrodillos {
 			for (int i = 0; i<actorManager.actors.Count; i++) {
 				//TODO make sure right character spawns
 				GameObject player = Instantiate(actorPrefab);
+
 				Actor_AstrodilloPlayer actor = player.GetComponent<Actor_AstrodilloPlayer>();
+				float spawnAngle = Mathf.Atan2(spawnPoints[i].y, spawnPoints[i].x) * Mathf.Rad2Deg;
+				actor.Spawn(spawnPoints[i], spawnAngle);
 
 				actor.SetController(actorManager.actors[i].controllerID);
 
