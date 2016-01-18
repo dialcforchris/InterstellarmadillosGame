@@ -60,7 +60,7 @@ namespace Astrodillos{
 				if(!col.usedByEffector){
 					//If not ignore collider (player)
 					if(col != ignoreCollider){
-						Explode();
+						Explode(col);
 						if(col.gameObject.GetComponent<Actor_AstrodilloPlayer>()){
 							col.gameObject.GetComponent<Actor_AstrodilloPlayer>().TakeDamage();
 						}
@@ -78,10 +78,10 @@ namespace Astrodillos{
 			}
 		}
 		
-		void Explode(){
+		void Explode(Collider2D col){
 
 			gameObject.SetActive (false);
-			GameType_Astrodillos.instance.Explosion (transform.position);
+			GameType_Astrodillos.instance.Explosion (transform.position, col);
 			AddMissileBackToPool ();
 		}
 

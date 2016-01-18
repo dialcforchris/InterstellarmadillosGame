@@ -10,6 +10,7 @@ namespace Astrodillos {
 
 		public MissileManager missileManager;
 		public ParticleSystem explosionParticles;
+		public SpriteRenderer explosionMask;
 
 		HUDManager hudManager {
 			set{}
@@ -48,8 +49,17 @@ namespace Astrodillos {
 		}
 
 		//Use the single particle emitter for all explosions
-		public void Explosion(Vector3 explosionPos, float explosionSize = 0.2f){
+		public void Explosion(Vector3 explosionPos, Collider2D col = null, float explosionSize = 0.2f){
 			explosionParticles.transform.position = explosionPos;
+			explosionMask.gameObject.transform.position = explosionPos;
+
+			//If what the explosion collided with initially is destructible
+			if (col != null) {
+				DestructibleObject destructObj = col.gameObject.GetComponent<DestructibleObject>();
+				if(destructObj!=null){
+					destructObj.DestroyPixels(explosionMask);
+				}
+			}
 
 			//If size is different to what has been set
 			if (explosionSize != explosionParticles.startSize) {
