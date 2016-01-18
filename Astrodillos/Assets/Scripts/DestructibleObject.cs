@@ -25,7 +25,7 @@ public class DestructibleObject : MonoBehaviour {
 
 	//TODO work with rotated objects
 	public void DestroyPixels(SpriteRenderer mask){
-
+		Debug.Log (1);
 		bool test = false;
 		//If the mask actually intersects with the bounds of the sprite
 		if (mask.bounds.Intersects (spriteRenderer.bounds)) {
@@ -51,7 +51,7 @@ public class DestructibleObject : MonoBehaviour {
 						int spriteY = Mathf.RoundToInt(spritePixel.y);
 
 						if(spriteX>0 && spriteX<sprite.texture.width &&
-						   spriteY>0 && spriteX<sprite.texture.height){
+						   spriteY>0 && spriteY<sprite.texture.height){
 							spriteTex.SetPixel(spriteX,spriteY, new Color(0,0,0,0));
 						}
 					}
