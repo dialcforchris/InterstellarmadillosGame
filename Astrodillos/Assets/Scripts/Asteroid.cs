@@ -96,8 +96,10 @@ namespace Astrodillos{
 		}
 	    void OnCollisionEnter2D(Collision2D other)
 	    {
-
-			GameType_Astrodillos.instance.Explosion (transform.position, other.collider,0.75f);
+			Vector3 direction = other.transform.position - transform.position;
+			direction.Normalize ();
+			Vector3 explosionPos = transform.position + (direction*0.4f);
+			GameType_Astrodillos.instance.Explosion (explosionPos, other.collider,0.75f);
 
 	        Destroy(gameObject);
 

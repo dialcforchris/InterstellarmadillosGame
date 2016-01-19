@@ -81,7 +81,10 @@ namespace Astrodillos{
 		void Explode(Collider2D col){
 
 			gameObject.SetActive (false);
-			GameType_Astrodillos.instance.Explosion (transform.position, col);
+			Vector3 direction = col.transform.position - transform.position;
+			direction.Normalize ();
+			Vector3 explosionPos = transform.position + (direction*0.25f);
+			GameType_Astrodillos.instance.Explosion (explosionPos, col);
 			AddMissileBackToPool ();
 		}
 

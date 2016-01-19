@@ -25,13 +25,8 @@ public class DestructibleObject : MonoBehaviour {
 
 	//TODO work with rotated objects
 	public void DestroyPixels(SpriteRenderer mask){
-		Debug.Log (1);
-		bool test = false;
 		//If the mask actually intersects with the bounds of the sprite
 		if (mask.bounds.Intersects (spriteRenderer.bounds)) {
-
-			Vector2 bounds = new Vector2(spriteRenderer.bounds.min.x, spriteRenderer.bounds.min.y);
-			//Debug.Log(sprite.);
 
 			for (int x = 0; x<mask.sprite.texture.width; x++) {
 
