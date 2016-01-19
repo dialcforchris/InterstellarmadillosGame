@@ -21,7 +21,7 @@ namespace Astrodillos {
 
 		ArmadilloHUD armadilloHUD;
 		
-		float jetpackPower = 2.5f;
+		float jetpackPower = 1.5f;
 		float rotateSpeed = 60f;
 		float aimTurnSpeed = 75;
         float influence;
@@ -205,7 +205,7 @@ namespace Astrodillos {
         {
                 if (thrust && playerState == PlayerState.Alive)
                 {
-                    source.volume = 1;
+                    source.volume = 0.2f;
                     if (!source.isPlaying)
                         source.PlayOneShot(jetPack);
                 }

@@ -96,10 +96,6 @@ namespace Astrodillos{
 		}
 	    void OnCollisionEnter2D(Collision2D other)
 	    {
-            //Vector3 direction = other.transform.position - transform.position;
-            //direction.Normalize ();
-            //Vector3 explosionPos = transform.position + (direction*0.4f);
-            //GameType_Astrodillos.instance.Explosion (explosionPos, other.collider,0.75f);
             SpawnExplosion(other);
 
 	        Destroy(gameObject);
@@ -123,7 +119,7 @@ namespace Astrodillos{
             Vector3 direction = other.transform.position - transform.position;
             direction.Normalize();
             Vector3 explosionPos = transform.position + (direction * 0.4f);
-            GameType_Astrodillos.instance.Explosion(explosionPos, other.collider, 0.75f);
+            GameType_Astrodillos.instance.Explosion(explosionPos, other.collider, 0.25f);
 
         }
 	}

@@ -14,7 +14,6 @@ namespace Astrodillos{
 
         //audio stuff
         public AudioClip fireRocket;
-        public AudioClip explode;
         AudioSource audioSource;
 
 		float missileSpeed = 30f;
@@ -112,11 +111,6 @@ namespace Astrodillos{
 			active = false;
 			GameType_Astrodillos.instance.missileManager.AddMissileBackToPool (this);
 		}
-        public void PlayExplosion()
-        {
-            //play explosion sound
-            audioSource.PlayOneShot(explode);
-        }
 	}
 }
 
