@@ -11,6 +11,8 @@ namespace Astrodillos {
 		public MissileManager missileManager;
 		public ParticleSystem explosionParticles;
 		public SpriteRenderer explosionMask;
+        public AudioClip explosion;
+        AudioSource source;
 
 		HUDManager hudManager {
 			set{}
@@ -35,7 +37,7 @@ namespace Astrodillos {
 				//Spawn players when we start
 				SpawnPlayers ();
 			}
-
+            source = GetComponent<AudioSource>();
 
 		}
 
@@ -52,6 +54,10 @@ namespace Astrodillos {
 		public void Explosion(Vector3 explosionPos, Collider2D col = null, float explosionSize = 0.2f){
 			explosionParticles.transform.position = explosionPos;
 			explosionMask.gameObject.transform.position = explosionPos;
+            //if (!source.isPlaying)
+            {
+                source.PlayOneShot(explosion);
+            }
 
 			//If what the explosion collided with initially is destructible
 			if (col != null) {
