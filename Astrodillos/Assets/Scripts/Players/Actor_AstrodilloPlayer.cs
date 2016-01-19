@@ -10,14 +10,21 @@ namespace Astrodillos {
 		}
 
 		public ParticleSystem jetpackParticles;
+        //sound things
+        public AudioClip jetPack;
+        AudioSource source;
+        float timer = 0;
+
 		SpriteRenderer spriteRenderer;
 		PlayerState playerState = PlayerState.Alive;
+       
 
 		ArmadilloHUD armadilloHUD;
 		
-		float jetpackPower = 1.5f;
+		float jetpackPower = 2.5f;
 		float rotateSpeed = 60f;
 		float aimTurnSpeed = 75;
+        float influence;
 
 		float jetpackFuel = 1.0f;
 		float fuelBurnRate = 0.2f;
@@ -25,7 +32,8 @@ namespace Astrodillos {
 		float fuelRefillTime = 1f; //Used to start refill after player stops thrusting
 		float fuelRefillCounter;
 
-		int ammo = 1;
+		int ammo = 3;
+        int maxAmmo = 3;
 		float ammoRefillTime = 1f;
 		float ammoRefillCounter;
 
@@ -43,6 +51,7 @@ namespace Astrodillos {
 			body = GetComponent<Rigidbody2D>();
 			collider = GetComponent<Collider2D> ();
 			spriteRenderer = GetComponent<SpriteRenderer> ();
+            source = GetComponent<AudioSource>();
 		}
 
 		protected override void Start(){
@@ -57,34 +66,53 @@ namespace Astrodillos {
 		// Update is called once per frame
 		void Update () {
 			bool thrusting = false;
-
+           
+           
 			switch (playerState) {
 			case PlayerState.Alive:{
 				if (controller.trigger.GetValue()!=0){
 					if (jetpackFuel > 0) {
 						Thrust();
 						thrusting = true;
-					}
+                       
+                    }
 				}
-				
+
+                influence = 1.0f;
 				if(controller.bumper.JustPressed()){
 					FireMissile();
+
 				}
 				
 				UpdateRotation ();
-
-				if (ammoRefillCounter < ammoRefillTime) {
-					ammoRefillCounter += Time.deltaTime;
-					if(ammoRefillCounter >= ammoRefillTime){
-						armadilloHUD.RefillAmmo();
-						ammo++;
-					}
+                if (ammo<=maxAmmo)
+                {
+                    if (ammoRefillCounter < ammoRefillTime)
+                    {
+                        ammoRefillCounter += Time.deltaTime;
+                        if (ammoRefillCounter >= ammoRefillTime)
+                        {
+                            armadilloHUD.RefillAmmo();
+                            ammo++;
+                            ammoRefillCounter = 0;
+                        }
+                    }
 				}
 
 				break;
+                
 			}
+            case PlayerState.Dead:
+                {
+                    influence = 0.1f;
+                    UpdateRotation();
+                    GetComponent<Rigidbody2D>().AddForce(transform.forward);
+                    break;
+                }
+               
 			}
-
+            //play/stop sounds
+            JetPackSound(thrusting);
 
 			if (!thrusting) {
 				if(fuelRefillCounter<fuelRefillTime){
@@ -109,6 +137,8 @@ namespace Astrodillos {
 			if (!jetpackParticles.isPlaying) {
 				jetpackParticles.Play();
 			}
+           
+
 
 
 			fuelRefillCounter = 0;
@@ -122,6 +152,7 @@ namespace Astrodillos {
 				ammo--;
 				ammoRefillCounter = 0;
 				armadilloHUD.RemoveAmmo();
+               // source.PlayOneShot(rocket, 1);
 			}
 
 		}
@@ -131,7 +162,7 @@ namespace Astrodillos {
 			//Direction the analog stick is facing
 			Vector2 stickAim = new Vector2 (controller.rightButton.GetValue (), controller.upButton.GetValue ());
 			if (stickAim.x != 0 || stickAim.y != 0) {
-				float stickAngle = Mathf.Atan2 (stickAim.y, stickAim.x) * Mathf.Rad2Deg;
+                float stickAngle = (Mathf.Atan2(stickAim.y, stickAim.x) * Mathf.Rad2Deg) * influence;
 
 				transform.localEulerAngles = new Vector3 (0, 0, stickAngle-180);
 				body.angularVelocity = 0;
@@ -170,7 +201,26 @@ namespace Astrodillos {
 		public override void SetSprite(Sprite sprite){
 			spriteRenderer.sprite = sprite;
 		}
-
+        void JetPackSound(bool thrust)
+        {
+                if (thrust && playerState == PlayerState.Alive)
+                {
+                    source.volume = 1;
+                    if (!source.isPlaying)
+                        source.PlayOneShot(jetPack);
+                }
+                else if (!thrust||playerState == PlayerState.Dead)
+                {
+                    if (source.volume >= 0.01f)
+                    {
+                        source.volume -= 2f * Time.deltaTime;
+                    }
+                    else
+                    {
+                        source.Stop();
+                    }
+                }
+        }
 	}
 }
 

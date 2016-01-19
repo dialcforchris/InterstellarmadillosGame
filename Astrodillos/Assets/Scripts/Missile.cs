@@ -12,6 +12,10 @@ namespace Astrodillos{
 		//Collider to ignore (usually player who fires)
 		Collider2D ignoreCollider;
 
+        //audio stuff
+        public AudioClip fireRocket;
+        public AudioClip explode;
+        AudioSource audioSource;
 
 		float missileSpeed = 30f;
 
@@ -21,6 +25,7 @@ namespace Astrodillos{
 		void Awake () {
 			body = GetComponent<Rigidbody2D> ();
 			sprite = GetComponentInChildren<SpriteRenderer> ();
+            audioSource = GetComponent<AudioSource>();
 		}
 		
 		public void Spawn(Vector3 spawnPos, float angle, Collider2D playerCollider = null){
@@ -31,7 +36,10 @@ namespace Astrodillos{
 			body.angularVelocity = 0;
 			gameObject.SetActive (true);
 			aliveTime = 0;
-
+            if (!audioSource.isPlaying)
+            {
+                audioSource.PlayOneShot(fireRocket,0.7f);
+            }
 			angle *= Mathf.Deg2Rad;
 			Vector2 forceDirection = new Vector2 (Mathf.Cos (angle), Mathf.Sin (angle));
 			body.AddForce (forceDirection * missileSpeed);
@@ -40,9 +48,11 @@ namespace Astrodillos{
 		// Update is called once per frame
 		void Update () {
 			if (active) {
+               
 				aliveTime += Time.deltaTime;
 				if(aliveTime>maxAliveTime){
 					AddMissileBackToPool();
+                   
 				}
 			}
 		}
@@ -56,14 +66,22 @@ namespace Astrodillos{
 		void OnTriggerEnter2D(Collider2D col){
 
 			if (active) {
+               
 				//Ignore gravity
 				if(!col.usedByEffector){
-					//If not ignore collider (player)
+                    //If not ignore collider (player)
 					if(col != ignoreCollider){
+                      
 						Explode(col);
 						if(col.gameObject.GetComponent<Actor_AstrodilloPlayer>()){
 							col.gameObject.GetComponent<Actor_AstrodilloPlayer>().TakeDamage();
 						}
+                        if (col.gameObject.GetComponent<Asteroid>())
+                        {
+                         Destroy(col.gameObject);
+                        
+        
+                        }
 					}
 				}
 
@@ -79,19 +97,26 @@ namespace Astrodillos{
 		}
 		
 		void Explode(Collider2D col){
-
-			gameObject.SetActive (false);
+          
+            gameObject.SetActive (false);
 			Vector3 direction = col.transform.position - transform.position;
 			direction.Normalize ();
 			Vector3 explosionPos = transform.position + (direction*0.25f);
 			GameType_Astrodillos.instance.Explosion (explosionPos, col);
-			AddMissileBackToPool ();
+            
+            
+            AddMissileBackToPool ();
 		}
 
 		void AddMissileBackToPool(){
 			active = false;
 			GameType_Astrodillos.instance.missileManager.AddMissileBackToPool (this);
 		}
+        public void PlayExplosion()
+        {
+            //play explosion sound
+            audioSource.PlayOneShot(explode);
+        }
 	}
 }
 
