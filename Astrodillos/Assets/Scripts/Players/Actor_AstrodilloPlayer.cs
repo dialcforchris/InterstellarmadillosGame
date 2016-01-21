@@ -77,7 +77,7 @@ namespace Astrodillos {
                        
                     }
 				}
-
+               // Isoish();
                 influence = 1.0f;
 				if(controller.bumper.JustPressed()){
 					FireMissile();
@@ -221,6 +221,18 @@ namespace Astrodillos {
                     }
                 }
         }
+        //void Isoish()
+        //{
+        //    Vector2 halfWay;
+            
+        //    halfWay = Camera.main.ViewportToWorldPoint(new Vector2(0.0f, 0.5f));
+
+        //    if (transform.position.y>halfWay.y&&transform.localScale.x<=1.5f)
+        //    {
+        //        transform.localScale -= new Vector3(Camera.main.WorldToViewportPoint(transform.position).y,Camera.main.WorldToViewportPoint(transform.position).y,0);
+        //    }
+        //}
+
 	}
 }
 
