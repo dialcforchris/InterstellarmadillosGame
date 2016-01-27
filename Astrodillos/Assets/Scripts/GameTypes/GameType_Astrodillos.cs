@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-//using UnityEditor;
 
 namespace Astrodillos {
 	public class GameType_Astrodillos : GameType {
@@ -73,7 +72,7 @@ namespace Astrodillos {
 				//Update the necessary attributes to change size
 				explosionParticles.startSize = explosionSize;
 				UnityEditor.SerializedObject so = new UnityEditor.SerializedObject (explosionParticles);
-               	so.FindProperty ("ShapeModule.radius").floatValue = explosionSize;
+				so.FindProperty ("ShapeModule.radius").floatValue = explosionSize;
 				so.ApplyModifiedProperties ();
 			}
 
