@@ -9,6 +9,7 @@ tpsheetFileNames:
 - Assets/Resources/Spritesheets/Armadillos/Armadillo_Pink_Atlas.tpsheet
 - Assets/Resources/Spritesheets/Armadillos/Armadillo_Blue_Atlas.tpsheet
 - Assets/Resources/Spritesheets/Armadillos/Armadillo_Green_Atlas.tpsheet
+- Assets/Sprites/Astrodillos/Armad/armad_placeholder_atlas.tpsheet
 textureFileNames:
 - Assets/Resources/Spritesheets/Armadillos/Armadillo_Beige_Atlas.png
 - Assets/Resources/Spritesheets/Armadillos/Armadillo_Red_Atlas.png
@@ -18,7 +19,9 @@ textureFileNames:
 - Assets/Resources/Spritesheets/Armadillos/Armadillo_Pink_Atlas.png
 - Assets/Resources/Spritesheets/Armadillos/Armadillo_Blue_Atlas.png
 - Assets/Resources/Spritesheets/Armadillos/Armadillo_Green_Atlas.png
+- Assets/Sprites/Astrodillos/Armad/armad_placeholder_atlas.png
 normalmapFileNames:
+- 
 - 
 - 
 - 
