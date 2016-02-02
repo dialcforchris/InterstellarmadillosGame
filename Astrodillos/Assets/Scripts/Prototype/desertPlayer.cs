@@ -21,7 +21,7 @@ public class desertPlayer : Actor {
         {
             if (coolDown >= 0.1f)
             {
-                bullets.GetComponent<machineGun>().direction = transform.forward;
+              //  bullets.GetComponent<machineGun>().direction = transform.forward;
                 GameObject bullet = Instantiate(bullets, new Vector2(transform.position.x + 1, transform.position.y), new Quaternion(0, 0, 0, 0)) as GameObject;
                 bullet.GetComponent<Rigidbody2D>().AddForce(transform.up * 500);
                 coolDown = 0;

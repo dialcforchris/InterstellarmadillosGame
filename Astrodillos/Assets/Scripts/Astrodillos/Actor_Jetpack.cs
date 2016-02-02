@@ -25,6 +25,7 @@ public class Actor_Jetpack : Actor {
 	
 	protected override void Start () {
 		base.Start ();
+       
 	}
 	
 	// Update is called once per frame
@@ -69,7 +70,7 @@ public class Actor_Jetpack : Actor {
 		Vector2 stickAim = new Vector2 (controller.rightButton.GetValue (), controller.upButton.GetValue ());
 		if (stickAim.x != 0 || stickAim.y != 0) {
 			currentAngle = (Mathf.Atan2(stickAim.x, -stickAim.y) * Mathf.Rad2Deg);
-			
+		
 			//Flip x scale if less than 0 angle - temp untill left side sprites?
 			int xScale = (currentAngle>=0) ? 1 : -1;
 			gameObject.transform.localScale = new Vector3(xScale,1,1);
