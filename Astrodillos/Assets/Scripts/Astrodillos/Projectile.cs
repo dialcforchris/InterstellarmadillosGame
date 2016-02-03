@@ -7,6 +7,7 @@ public class Projectile : MonoBehaviour {
 	protected Rigidbody2D body;
 	public Collider2D ignoreCollider;
 	
+    
 	protected float projectileSpeed = 5.0f;
 	// Use this for initialization
 	protected virtual void Awake () {
@@ -18,9 +19,9 @@ public class Projectile : MonoBehaviour {
 		
 	}
 	
-	public void Fire(Collider2D _ignoreCollider){
+	public void Fire(Collider2D _ignoreCollider, Vector3 parentVel){
 		ignoreCollider = _ignoreCollider;
-		body.velocity = transform.right * projectileSpeed;
+        body.velocity = (transform.right * projectileSpeed) +parentVel;
 	}
 	
 	protected virtual void HitObject(GameObject hitObject){

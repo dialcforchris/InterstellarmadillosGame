@@ -1,11 +1,10 @@
 fileFormatVersion: 2
-guid: c4cd8eae51044b841b693e0d747379c2
-timeCreated: 1454518162
+guid: c95679e6c51bb6f4b8ceec66424ba5fb
+timeCreated: 1454498615
 licenseType: Free
 MonoImporter:
   serializedVersion: 2
-  defaultReferences:
-  - weaponProjectile: {fileID: 126340, guid: 3ffaa56da1f00534e8a6688d49e0d7bf, type: 2}
+  defaultReferences: []
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

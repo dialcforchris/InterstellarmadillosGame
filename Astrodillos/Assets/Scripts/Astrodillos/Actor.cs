@@ -28,6 +28,7 @@ public class Actor : MonoBehaviour {
 	
 	
 	protected virtual void Awake(){
+        
 		animator = GetComponent<Animator> ();
 		spriteRenderer = GetComponent<SpriteRenderer> ();
 		body = GetComponent<Rigidbody2D> ();
@@ -35,8 +36,8 @@ public class Actor : MonoBehaviour {
 		//Debug set character to placeholder
 		SetCharacter ("placeholder");
 		//Weapon
-		weapon = gameObject.AddComponent<Weapon_Bazooka> ();
-        
+		//weapon = gameObject.AddComponent<Weapon_Bazooka> ();
+        weapon = gameObject.AddComponent<Weapon_MachineGun>();
 	}
 	
 	// Use this for initialization

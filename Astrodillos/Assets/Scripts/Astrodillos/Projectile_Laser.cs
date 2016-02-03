@@ -1,22 +1,23 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Projectile_MachineBullet : Projectile {
+public class Projectile_Laser : Projectile 
+{
     protected virtual void Awake()
     {
         base.Awake();
         projectileSpeed = 10.0f;
-        
+
 
     }
-    
+
     protected virtual void Update()
     {
         base.Update();
 
         //Update rotation to face force direction
-       float rocketAngle = (Mathf.Rad2Deg * Mathf.Atan2(body.velocity.x, -body.velocity.y)) - 90;
-       transform.localEulerAngles = new Vector3(0, 0, rocketAngle);
+        float rocketAngle = (Mathf.Rad2Deg * Mathf.Atan2(body.velocity.x, -body.velocity.y)) - 90;
+        transform.localEulerAngles = new Vector3(0, 0, rocketAngle);
     }
 
     protected override void HitObject(GameObject hitObject)
@@ -26,7 +27,7 @@ public class Projectile_MachineBullet : Projectile {
         Vector3 direction = hitObject.transform.position - transform.position;
         direction.Normalize();
         Vector3 explosionPos = transform.position + (direction * 0.25f);
-        GameType_Astrodillos.instance.Explosion(explosionPos, hitObject,0.1f);
+        GameType_Astrodillos.instance.Explosion(explosionPos, hitObject, 0.5f);
 
         /*if (col.gameObject.GetComponent<Asteroid>())
         {
@@ -34,4 +35,5 @@ public class Projectile_MachineBullet : Projectile {
         }*/
 
     }
+	
 }

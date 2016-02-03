@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Actor_Jetpack : Actor {
+public class Actor_Jetpack1 : Actor {
 	
 	public SpriteRenderer jetpackSprite;
 	public ParticleSystem jetpackParticles;
@@ -41,8 +41,10 @@ public class Actor_Jetpack : Actor {
 		UpdateShooting ();
 	}
 	
-	void UpdateShooting(){
-		if (controller.bumper.JustPressed ()) {
+	void UpdateShooting()
+    {
+		if (controller.bumper.IsDown()) 
+        {
 			weapon.Fire(currentAngle-90,body.velocity);
 		}
 	}
