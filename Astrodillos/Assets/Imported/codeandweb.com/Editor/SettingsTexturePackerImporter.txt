@@ -2,24 +2,24 @@ version: 2
 importPivots: 1
 tpsheetFileNames:
 - Assets/Resources/Spritesheets/Armadillos/Armadillo_Beige_Atlas.tpsheet
+- Assets/Resources/Spritesheets/Armadillos/Armadillo_Green_Atlas.tpsheet
+- Assets/Resources/Spritesheets/Armadillos/Armadillo_Blue_Atlas.tpsheet
 - Assets/Resources/Spritesheets/Armadillos/Armadillo_Red_Atlas.tpsheet
-- Assets/Resources/Spritesheets/Armadillos/Armadillo_Purple_Atlas.tpsheet
-- Assets/Resources/Spritesheets/Armadillos/Armadillo_Cyan_Atlas.tpsheet
+- Assets/Sprites/Astrodillos/Armad/armad_placeholder_atlas.tpsheet
 - Assets/Resources/Spritesheets/Armadillos/Armadillo_Yellow_Atlas.tpsheet
 - Assets/Resources/Spritesheets/Armadillos/Armadillo_Pink_Atlas.tpsheet
-- Assets/Resources/Spritesheets/Armadillos/Armadillo_Blue_Atlas.tpsheet
-- Assets/Resources/Spritesheets/Armadillos/Armadillo_Green_Atlas.tpsheet
-- Assets/Sprites/Astrodillos/Armad/armad_placeholder_atlas.tpsheet
+- Assets/Resources/Spritesheets/Armadillos/Armadillo_Purple_Atlas.tpsheet
+- Assets/Resources/Spritesheets/Armadillos/Armadillo_Cyan_Atlas.tpsheet
 textureFileNames:
 - Assets/Resources/Spritesheets/Armadillos/Armadillo_Beige_Atlas.png
+- Assets/Resources/Spritesheets/Armadillos/Armadillo_Green_Atlas.png
+- Assets/Resources/Spritesheets/Armadillos/Armadillo_Blue_Atlas.png
 - Assets/Resources/Spritesheets/Armadillos/Armadillo_Red_Atlas.png
-- Assets/Resources/Spritesheets/Armadillos/Armadillo_Purple_Atlas.png
-- Assets/Resources/Spritesheets/Armadillos/Armadillo_Cyan_Atlas.png
+- Assets/Sprites/Astrodillos/Armad/armad_placeholder_atlas.png
 - Assets/Resources/Spritesheets/Armadillos/Armadillo_Yellow_Atlas.png
 - Assets/Resources/Spritesheets/Armadillos/Armadillo_Pink_Atlas.png
-- Assets/Resources/Spritesheets/Armadillos/Armadillo_Blue_Atlas.png
-- Assets/Resources/Spritesheets/Armadillos/Armadillo_Green_Atlas.png
-- Assets/Sprites/Astrodillos/Armad/armad_placeholder_atlas.png
+- Assets/Resources/Spritesheets/Armadillos/Armadillo_Purple_Atlas.png
+- Assets/Resources/Spritesheets/Armadillos/Armadillo_Cyan_Atlas.png
 normalmapFileNames:
 - 
 - 

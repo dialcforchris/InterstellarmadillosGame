@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: d072c77d0940f65468fbffe688e987b1
+timeCreated: 1454417671
+licenseType: Free
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences:
+  - weaponProjectile: {fileID: 173060, guid: b428f6afed83c3f43a405d12d298e59e, type: 2}
+  - bullets: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

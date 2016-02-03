@@ -22,7 +22,7 @@ public class Actor : MonoBehaviour {
 	
 	
 	protected Weapon weapon;
-	
+   // protected Weapon weapon2;
 	//Array of sprites in the character's spritesheet
 	private Sprite[] subSprites;
 	
@@ -36,6 +36,7 @@ public class Actor : MonoBehaviour {
 		SetCharacter ("placeholder");
 		//Weapon
 		weapon = gameObject.AddComponent<Weapon_Bazooka> ();
+        
 	}
 	
 	// Use this for initialization

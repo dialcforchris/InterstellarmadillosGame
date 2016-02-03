@@ -14,7 +14,7 @@ public class Weapon : MonoBehaviour {
 		projectile.transform.position = gameObject.transform.position;
 		projectile.transform.localEulerAngles = new Vector3 (0, 0, angle);
 		
-		Projectile component = projectile.GetComponent<Projectile> ();
+		Projectile component= projectile.GetComponent<Projectile> ();
 		component.Fire (gameObject.GetComponent<Collider2D>());
 	}
 }
