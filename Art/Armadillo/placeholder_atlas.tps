@@ -147,7 +147,7 @@
             <key>datafile</key>
             <struct type="DataFile">
                 <key>name</key>
-                <filename></filename>
+                <filename>../../Astrodillos/Assets/Sprites/Astrodillos/Armad/armad_placeholder_atlas.tpsheet</filename>
             </struct>
         </map>
         <key>multiPack</key>
