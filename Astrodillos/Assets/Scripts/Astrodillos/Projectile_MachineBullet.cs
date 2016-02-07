@@ -28,7 +28,7 @@ public class Projectile_MachineBullet : Projectile {
         Vector3 explosionPos = transform.position + (direction * 0.25f);
         GameType_Astrodillos.instance.Explosion(explosionPos, hitObject,0.1f);
 
-        /*if (col.gameObject.GetComponent<Asteroid>())
+       /*if (col.gameObject.GetComponent<Asteroid>())
         {
             Destroy(col.gameObject);
         }*/

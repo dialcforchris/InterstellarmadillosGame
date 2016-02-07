@@ -19,9 +19,11 @@ public class Projectile : MonoBehaviour {
 		
 	}
 	
-	public void Fire(Collider2D _ignoreCollider, Vector3 parentVel){
+	public void Fire(Collider2D _ignoreCollider, Vector3 parentVel)
+    {
 		ignoreCollider = _ignoreCollider;
-        body.velocity = (transform.right * projectileSpeed) +parentVel;
+        body.velocity = (transform.right * projectileSpeed) + parentVel;
+       
 	}
 	
 	protected virtual void HitObject(GameObject hitObject){

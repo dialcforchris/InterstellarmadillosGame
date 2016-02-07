@@ -17,14 +17,14 @@ public class screenWrap : MonoBehaviour {
 	void Update ()
     {
         position = gameObject.transform.position;
-
+        Vector2 scale = transform.localScale;
         if (position.x>screenToWorldMax.x)
         {
             gameObject.transform.position = new Vector2(screenToWorldMin.x,position.y);
         }
         if (position.x<screenToWorldMin.x)
         {
-            gameObject.transform.position = new Vector2(screenToWorldMax.x, position.y);
+            gameObject.transform.position = new Vector2(screenToWorldMax.x , position.y);
         }
         if (position.y>screenToWorldMax.y)
             {

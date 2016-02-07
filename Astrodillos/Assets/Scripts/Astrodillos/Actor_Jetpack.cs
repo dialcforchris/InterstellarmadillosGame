@@ -13,7 +13,7 @@ public class Actor_Jetpack : Actor {
 	private float fuelRefillRate = 0.5f;
 	private float fuelRefillTime = 1f; //Used to start refill after player stops thrusting
 	private float fuelRefillCounter;
-	
+    private float timer = 0;
 	private bool isThrusting = false;
 	
 	private float currentAngle = 0;
@@ -21,6 +21,7 @@ public class Actor_Jetpack : Actor {
 	// Use this for initialization
 	protected override void Awake () {
 		base.Awake ();
+        timer = weapon.coolDown; 
 	}
 	
 	protected override void Start () {
@@ -42,8 +43,15 @@ public class Actor_Jetpack : Actor {
 	}
 	
 	void UpdateShooting(){
-		if (controller.bumper.JustPressed ()) {
-			weapon.Fire(currentAngle-90,body.velocity);
+               
+		if (controller.bumper.IsDown ()) 
+        {
+            timer += Time.deltaTime;
+            if (timer >= weapon.coolDown)
+            {
+                weapon.Fire(currentAngle - 90, body.velocity);
+                timer = 0;
+            }
 		}
 	}
 	
