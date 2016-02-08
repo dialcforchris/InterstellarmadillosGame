@@ -36,7 +36,7 @@ public class Actor : MonoBehaviour {
 		//Debug set character to placeholder
 		SetCharacter ("placeholder");
 		//Weapon
-		weapon = gameObject.AddComponent<Weapon_Bazooka>();
+		weapon = gameObject.AddComponent<Weapon_Laser>();
 	}
 	
 	// Use this for initialization

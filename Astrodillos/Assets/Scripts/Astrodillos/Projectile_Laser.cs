@@ -3,10 +3,16 @@ using System.Collections;
 
 public class Projectile_Laser : Projectile 
 {
+   
+   public LineRenderer line;
     protected virtual void Awake()
     {
+        
         base.Awake();
-        projectileSpeed = 10.0f;
+      
+        projectileSpeed = 100;
+        line = GetComponent<LineRenderer>();
+        
 
 
     }
@@ -19,7 +25,10 @@ public class Projectile_Laser : Projectile
         float rocketAngle = (Mathf.Rad2Deg * Mathf.Atan2(body.velocity.x, -body.velocity.y)) - 90;
         transform.localEulerAngles = new Vector3(0, 0, rocketAngle);
     }
+    protected virtual void Fire(Collider2D _ignoreCollider, Vector3 parentVel)
+    {
 
+    }
     protected override void HitObject(GameObject hitObject)
     {
         base.HitObject(hitObject);
