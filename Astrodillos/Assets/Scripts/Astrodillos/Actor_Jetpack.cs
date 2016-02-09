@@ -8,7 +8,7 @@ public class Actor_Jetpack : Actor {
 	
 	private float jetpackPower = 1.5f;
 	
-	private float jetpackFuel = 1.0f;
+	public float jetpackFuel = 1.0f;
 	private float fuelBurnRate = 0.2f;
 	private float fuelRefillRate = 0.5f;
 	private float fuelRefillTime = 1f; //Used to start refill after player stops thrusting
